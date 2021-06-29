@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Prediction
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,85 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Predict</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ion-card>
+
+    <ion-card-header>
+      Completed race
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-list inset>
+
+        <ion-item>
+          <ion-label>Distance:</ion-label>
+          <ion-input type="text" [value]="compdist" (input)="setCompDist($event)"></ion-input>
+          <ion-label>Unit</ion-label>
+          <ion-select id="selcompunit" value="mi" placeholder="mile" (ionChange)="selUnit($event)">
+            <ion-select-option value="m">meters</ion-select-option>
+            <ion-select-option value="km">kilometers</ion-select-option>
+            <ion-select-option selected value="mi">miles</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+
+        <ion-item>
+          <ion-label (ionChange)="calcRace()" color="primary">{{ timedata }}</ion-label>
+            <ion-button slot="end" fill="clear" (click)="showBasicPicker()">{{ timedata }}</ion-button>
+        </ion-item>
+
+      </ion-list>
+          
+          <div padding>
+            <ion-button (click)="calcRace(5000)" expand="block">Calculate</ion-button>
+          </div>
+    </ion-card-content>
+  
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      Predicted race
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label>Race distance</ion-label>
+        <ion-select id="predrace" value="mile" placeholder="1 Mile" (ionChange)="selPredDist($event)">
+          <ion-select-option value="800m">800m</ion-select-option>
+          <ion-select-option value="1000m">1000m</ion-select-option>
+          <ion-select-option value="1200m">1200m</ion-select-option>
+          <ion-select-option value="1500m">1500m</ion-select-option>
+          <ion-select-option value="1600m">1600m</ion-select-option>
+          <ion-select-option selected value="mile">1 Mile</ion-select-option>
+          <ion-select-option value="2000m">2000m</ion-select-option>
+          <ion-select-option value="3000m">3000m</ion-select-option>
+          <ion-select-option value="3200m">3200m</ion-select-option>
+          <ion-select-option value="2mile">2 Mile</ion-select-option>
+          <ion-select-option value="5000m">5000m</ion-select-option>
+          <ion-select-option value="10000m">10000m</ion-select-option>
+          <ion-select-option value="half">Half Marathon</ion-select-option>
+          <ion-select-option value="20km">20km</ion-select-option>
+          <ion-select-option value="marathon">Marathon</ion-select-option>
+          <ion-select-option value="50km">50km</ion-select-option>
+          <ion-select-option value="100km">100km</ion-select-option>
+          <ion-select-option value="100mi">100 Mile</ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      </ion-card-content>
+      </ion-card>
+
+<ion-card>
+  <ion-item>
+    <ion-label color="primary">{{ predtime }}</ion-label>
+  </ion-item>
+</ion-card>
+
 </ion-content>
