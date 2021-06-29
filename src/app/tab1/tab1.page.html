@@ -34,18 +34,12 @@
           </ion-select>
         </ion-item>
 
-
-
         <ion-item>
-          <ion-label (ionChange)="calcRace()" color="primary">{{ timedata }}</ion-label>
-            <ion-button slot="end" fill="clear" (click)="showBasicPicker()">{{ timedata }}</ion-button>
+            <ion-button text- slot="end" fill="clear" (click)="showBasicPicker()">{{ timedata }}</ion-button>
         </ion-item>
 
       </ion-list>
-          
-          <div padding>
-            <ion-button (click)="calcRace(5000)" expand="block">Calculate</ion-button>
-          </div>
+
     </ion-card-content>
   
   </ion-card>

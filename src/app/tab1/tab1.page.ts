@@ -10,12 +10,13 @@ import { PickerOptions } from '@ionic/core';
 export class Tab1Page {
 
   constructor(private pickerCtrl: PickerController) {}
-timedata="4:00.00";
-predtime="4:00.00";
-compdist=2;             //selected distance for completed distance
+timedata="00:04:00";
+predtime="Predicted finish time: 00:04:00";
+compdist=1;             //selected distance for completed distance
 compunit="mi";            //selected unit for completed distance
 compdistance=1609.344;  //completed distance in meters
-preddist=800;
+preddist=1609.344;
+numtimedata = 240;
 
   async showBasicPicker() {
     let opts: PickerOptions = {
@@ -200,6 +201,7 @@ role: 'cancel'
       let min = await picker.getColumn('min');
       let sec = await picker.getColumn('sec');
       this.timedata = hr.options[hr.selectedIndex].text + ":" + min.options[min.selectedIndex].text + ":" + sec.options[sec.selectedIndex].text;
+      this.calcRace();
     });
   }
 
@@ -210,7 +212,6 @@ role: 'cancel'
 
 selPredDist(selectedValue: any) {
   var event = selectedValue.target.value
-  console.log(event);
   if (event=="800m") { this.preddist = 800;}
   if (event=="1000m") { this.preddist = 1000;}
   if (event=="1200m") { this.preddist = 1200;}
@@ -229,35 +230,31 @@ selPredDist(selectedValue: any) {
   if (event=="50km") { this.preddist = 50000;}
   if (event=="100km") { this.preddist = 100000;}
   if (event=="100mi") { this.preddist = 1609.344 * 100;}
-  console.log("Preddist: " + this.preddist)
   this.calcRace()
 }
 
 selUnit(selectedValue: any) {
   var event = selectedValue.target.value
-  console.log("selection: " + event);
   if (event=="mi") { this.compunit = "mi";}
   if (event=="m") { this.compunit = "m";}
   if (event=="km") { this.compunit = "km";}
- console.log("compunit: " + this.compunit);
-
   this.calcRace()
 }
 
   calcRace() {
-
     if (this.compunit == "mi") {this.compdistance = this.compdist * 1609.344;}
     if (this.compunit == "km") {this.compdistance = this.compdist * 1000;}
     if (this.compunit == "m") {this.compdistance = this.compdist;}
 
     var numcompdist = this.compdistance;
-    var numtimedata = 60*parseFloat(this.timedata);
+    this.numtimedata = this.convertHHMMSS(this.timedata);
 
-    var reigel = numtimedata*Math.pow(this.preddist/numcompdist,1.06);
-    var cameron = (numtimedata/numcompdist) * this.preddist *(13.49681 - 0.000030363 * numcompdist + 835.7114/Math.pow(numcompdist,0.7905)) / (13.49681 - 0.000030363 * this.preddist + 835.7114/Math.pow(this.preddist,0.7905))
+    var reigel = this.numtimedata*Math.pow(this.preddist/numcompdist,1.06);
+    var cameron = (this.numtimedata/numcompdist) * this.preddist *(13.49681 - 0.000030363 * numcompdist + 835.7114/Math.pow(numcompdist,0.7905)) / (13.49681 - 0.000030363 * this.preddist + 835.7114/Math.pow(this.preddist,0.7905))
     var average = (reigel+cameron)/2;
     console.log("compunit: " + this.compunit);
-    console.log("timedata: " + numtimedata);
+    console.log("timedata: " + this.numtimedata);
+    console.log("preddist: " + this.preddist);
     console.log("compdist in meters: " + this.compdistance)
     console.log("compdist: " + this.compdist)
     console.log("reigel: " + reigel);
@@ -285,5 +282,13 @@ selUnit(selectedValue: any) {
     }
     this.predtime = "Predicted finish time: " + timeString;
   }
-  
+  convertHHMMSS(hms) {
+    console.log("hms: " + hms);
+var a = hms.split(':'); // split it at the colons
+console.log("a: " + a);
+// minutes are worth 60 seconds. Hours are worth 60 minutes.
+var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+console.log("seconds: " + seconds);
+return seconds;
+  }
 }
