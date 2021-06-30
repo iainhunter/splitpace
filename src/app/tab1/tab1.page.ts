@@ -17,6 +17,7 @@ compunit="mi";            //selected unit for completed distance
 compdistance=1609.344;  //completed distance in meters
 preddist=1609.344;
 numtimedata = 240;
+predrace = "1 Mile";
 
   async showBasicPicker() {
     let opts: PickerOptions = {
@@ -212,24 +213,24 @@ role: 'cancel'
 
 selPredDist(selectedValue: any) {
   var event = selectedValue.target.value
-  if (event=="800m") { this.preddist = 800;}
-  if (event=="1000m") { this.preddist = 1000;}
-  if (event=="1200m") { this.preddist = 1200;}
-  if (event=="1500m") { this.preddist = 1500;}
-  if (event=="1600m") { this.preddist = 1600;}
-  if (event=="mile") { this.preddist = 1609.344;}
-  if (event=="2000m") { this.preddist = 2000;}
-  if (event=="3000m") { this.preddist = 3000;}
-  if (event=="3200m") { this.preddist = 32000;}
-  if (event=="2mile") { this.preddist = 1609.344 * 2;}
-  if (event=="5000m") { this.preddist = 5000;}
-  if (event=="10km") { this.preddist = 10000;}
-  if (event=="20km") { this.preddist = 20000;}
-  if (event=="half") { this.preddist = 42195/2;}
-  if (event=="marathon") { this.preddist = 42195;}
-  if (event=="50km") { this.preddist = 50000;}
-  if (event=="100km") { this.preddist = 100000;}
-  if (event=="100mi") { this.preddist = 1609.344 * 100;}
+  if (event=="800m") { this.predrace = "800m"; this.preddist = 800;}
+  if (event=="1000m") { this.predrace = "1000m"; this.preddist = 1000;}
+  if (event=="1200m") { this.predrace = "1200m"; this.preddist = 1200;}
+  if (event=="1500m") { this.predrace = "1500m"; this.preddist = 1500;}
+  if (event=="1600m") { this.predrace = "1600m"; this.preddist = 1600;}
+  if (event=="mile") { this.predrace = "1 Mile"; this.preddist = 1609.344;}
+  if (event=="2000m") { this.predrace = "2000m"; this.preddist = 2000;}
+  if (event=="3000m") { this.predrace = "3000m"; this.preddist = 3000;}
+  if (event=="3200m") { this.predrace = "3200m"; this.preddist = 32000;}
+  if (event=="2mile") { this.predrace = "2 Mile"; this.preddist = 1609.344 * 2;}
+  if (event=="5000m") { this.predrace = "5000m"; this.preddist = 5000;}
+  if (event=="10km") { this.predrace = "10,000m"; this.preddist = 10000;}
+  if (event=="20km") { this.predrace = "20,000m"; this.preddist = 20000;}
+  if (event=="half") { this.predrace = "Half Marathon"; this.preddist = 42195/2;}
+  if (event=="marathon") { this.predrace = "Marathon"; this.preddist = 42195;}
+  if (event=="50km") { this.predrace = "50km"; this.preddist = 50000;}
+  if (event=="100km") { this.predrace = "100km"; this.preddist = 100000;}
+  if (event=="100mi") { this.predrace = "100mi"; this.preddist = 1609.344 * 100;}
   this.calcRace()
 }
 
@@ -260,6 +261,15 @@ selUnit(selectedValue: any) {
     console.log("reigel: " + reigel);
     console.log("cameron: " + cameron);
     console.log("Average: " + average);
+    console.log("Predrace: " + this.predrace);
+    
+    //Store data in local storage
+    localStorage.setItem("lscompunit", this.compunit);
+    localStorage.setItem("lsnumtimedata", this.numtimedata.toString());
+    localStorage.setItem("lspreddist", this.preddist.toString());
+    localStorage.setItem("lscompdistance", this.compdistance.toString());
+    localStorage.setItem("lscompdist", this.compdist.toString());
+    localStorage.setItem("lspredrace", this.predrace);
 
     var date = new Date(average * 1000);
     var hh = date.getUTCHours();
