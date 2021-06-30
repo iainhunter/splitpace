@@ -11,6 +11,7 @@ export class Tab2Page {
 
   constructor() {}
   
+  starttime = 0;
   compunit = localStorage.getItem("lscompunit");
   numtimedata = localStorage.getItem("lsnumtimedata");
   preddist = localStorage.getItem("lspreddist");
@@ -21,13 +22,36 @@ export class Tab2Page {
   time=0;
 
 startTimer() {
+  var d = new Date();
+  this.starttime = d.getTime();
+
   timer(0, 100).subscribe(ec => {
-    this.time=this.time+0.1;
-    if (this.time<600){
+    var n = new Date();
+    this.time= (n.getTime() - this.starttime)/1000;
+    if (this.time<60){
       this.timedisplay = this.time.toFixed(1).toString();
       console.log(this.time);
     }
+    else if (this.time>=60 && this.time<3600) 
+    {
+      var minutes = Math.floor(this.time / 60).toString();
+      var seconds = (this.time % 60).toFixed(1).toString();
+      var txtseconds="";
+      if (seconds.length<4) {txtseconds = "0"+seconds;} else {txtseconds = seconds;}
+      this.timedisplay = minutes + ":" + txtseconds;
+    }
+    else if (this.time>=3600) {
+      var hours = Math.floor(this.time / 3600);
+      var minutes = Math.floor(this.time / 60).toString();
+      var seconds = (this.time % 60).toFixed(1).toString();
+      var txtseconds="";
+      var txtminutes="";
+      if (seconds.length<4) {txtseconds = "0"+seconds;} else {txtseconds = seconds;}
+      if (minutes.length<4) {txtminutes = "0"+minutes;} else {txtminutes = minutes;}
+      this.timedisplay = hours + ":" + txtminutes + ":" + txtseconds;
+    }
   });
+
 
   console.log("compunit: " + this.compunit);
   console.log("timedata: " + this.numtimedata);
@@ -37,6 +61,11 @@ startTimer() {
   console.log("Predrace: " + this.predrace);
 
 }
+
+updateTimer() {
+
+}
+
 getDisplayTimer(time: number) {
   const hours = '0' + Math.floor(time / 3600);
   const minutes = '0' + Math.floor(time % 3600 / 60);
