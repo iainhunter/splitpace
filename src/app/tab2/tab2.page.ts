@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { timer } from "rxjs";
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
@@ -7,7 +7,6 @@ import { timer } from "rxjs";
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
 
   constructor() {}
   
@@ -20,10 +19,17 @@ export class Tab2Page {
   predrace = localStorage.getItem("lspredrace");
   timedisplay="";
   time=0;
+  startButton = "Start";
+  splitData = "";
 
+  ngOnInit() {
+    document.getElementById("splitData").innerHTML= this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>" + this.compdistance + "<br>";
+ }
+  
 startTimer() {
   var d = new Date();
   this.starttime = d.getTime();
+  this.startButton = "Split";
 
   timer(0, 100).subscribe(ec => {
     var n = new Date();
@@ -77,4 +83,6 @@ getDisplayTimer(time: number) {
   seconds: { digit1: seconds.slice(-2, -1), digit2: seconds.slice(-1) },
   };
 }
+
+
 }

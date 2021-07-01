@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Prediction
+      Timer
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,7 +26,7 @@
         <ion-item>
           <ion-label>{{ predrace }}</ion-label>
         </ion-item>
-        <ion-button expand="block" (click)="startTimer()">Start</ion-button>
+        <ion-button expand="block" (click)="startTimer()">{{ startButton }}</ion-button>
       </ion-list>
     </ion-card-content>
     </ion-card>
@@ -36,4 +36,9 @@
         <ion-label class="timerlabel">{{ timedisplay }}</ion-label>
       </ion-item>
     </ion-card>
+
+    <div id="splitData" style="overflow-y: scroll; height:400px;">
+    </div>
+
+
     </ion-content>
