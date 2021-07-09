@@ -20,6 +20,9 @@ export class Tab2Page {
   predtimestring = this.convertsectoHMS(this.predtimeseconds);
   splitDist = 400;
   firstSplit = 400;
+  finalSplit = 0;
+  numSplits = 0;
+  speed = 0;
 
   timedisplay = '';
   time = 0;
@@ -27,10 +30,28 @@ export class Tab2Page {
   splitData = '';
 
   ngOnInit() {
-    var splitText = 'Split     Goal     Actual    Cumul<br>';
     this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
+    //Calculate number of splits
+    this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
+    this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
+    if (this.numSplits-Math.floor(this.numSplits)>0) {
+      this.numSplits = Math.floor(this.numSplits)+1;
+    }
+    
+    this.speed = parseFloat(this.preddist)/parseFloat(this.predtimeseconds);
 
-    var splitText = splitText + "    0       1:00.0   1:00.0   1:00.0";
+    var splitText = 'Split     Goal     Actual    Cumul';
+    splitText = splitText + "<br>" + this.firstSplit.toString() + "  " + this.convertsectoHMS(this.firstSplit / this.speed);    
+    for (let i = 1; i < this.numSplits; i++) {
+      if (this.finalSplit && i==this.numSplits-1) {
+        splitText = splitText + "<br>" + (this.firstSplit + (i-1) * this.splitDist + this.finalSplit) + "  " + this.convertsectoHMS(this.predtimeseconds);
+      }
+      else
+      {
+        splitText = splitText + "<br>" + (this.firstSplit + i * this.splitDist) + "  " + this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed);
+      }
+
+    }
     document.getElementById('splitData').innerHTML = splitText;
   }
 
@@ -120,6 +141,9 @@ export class Tab2Page {
     var hh = date.getUTCHours();
     var mm = date.getUTCMinutes();
     var ss = date.getSeconds();
+    var milli = date.getMilliseconds();
+    milli = Math.floor(milli/100);
+
     var strhh;
     var strmm;
     var strss;
@@ -136,9 +160,9 @@ export class Tab2Page {
       strmm = mm.toString();
     }
     if (ss < 10) {
-      strss = '0' + ss;
+      strss = '0' + ss + "." + milli;
     } else {
-      strss = ss.toString();
+      strss = ss.toString() + "." + milli;
     }
 
     if (secondvalue < 3600) {
