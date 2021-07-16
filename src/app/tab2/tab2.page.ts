@@ -1,4 +1,4 @@
-import { timer } from 'rxjs';
+import { timer, interval } from 'rxjs';
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -22,15 +22,22 @@ export class Tab2Page {
   firstSplit = 400;
   finalSplit = 0;
   numSplits = 0;
+  completedSplits = 0;
   speed = 0;
-
+  running = false;
+  cumulsplit = [];
+  lapsplit = [];
   timedisplay = '';
   time = 0;
   startButton = 'Start';
   splitData = '';
+  private subscription;
+  public intervallTimer = interval(100);
 
   ngOnInit() {
     this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
+    this.timedisplay = "0.00";
+
     //Calculate number of splits
     this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
     this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
@@ -40,15 +47,15 @@ export class Tab2Page {
     
     this.speed = parseFloat(this.preddist)/parseFloat(this.predtimeseconds);
 
-    var splitText = 'Split     Goal     Actual    Cumul';
-    splitText = splitText + "<br>" + this.firstSplit.toString() + "  " + this.convertsectoHMS(this.firstSplit / this.speed);    
+    var splitText = ' Split&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goal&nbsp;&nbsp;&nbsp;&nbsp;Actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cumul';
+    splitText = splitText + "<br>" + this.setToChars(this.firstSplit.toString(),5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplit / this.speed),9);    
     for (let i = 1; i < this.numSplits; i++) {
       if (this.finalSplit && i==this.numSplits-1) {
-        splitText = splitText + "<br>" + (this.firstSplit + (i-1) * this.splitDist + this.finalSplit) + "  " + this.convertsectoHMS(this.predtimeseconds);
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + (i-1) * this.splitDist + this.finalSplit),5).toString() + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
       }
       else
       {
-        splitText = splitText + "<br>" + (this.firstSplit + i * this.splitDist) + "  " + this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed);
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + i * this.splitDist),5).toString() + " " + this.setToChars(this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed),9);
       }
 
     }
@@ -72,20 +79,71 @@ export class Tab2Page {
   }
 
   startTimer() {
-    var d = new Date();
-    this.starttime = d.getTime();
-    if ((this.startButton = 'Start')) {
+    if ((this.running == false)) {
+      var d = new Date();
+      this.starttime = d.getTime();
+      this.running = true;
       this.startButton = 'Split';
+      this.completedSplits = 0;
     } else {
       //Run code for adding a split
+      this.completedSplits = this.completedSplits + 1;
+      if (this.completedSplits == this.numSplits) { 
+        this.subscription.unsubscribe();
+        this.startButton = "Finished"; 
+        this.running = false;
+    }
+      this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
+      this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
+      if (this.numSplits-Math.floor(this.numSplits)>0) {
+        this.numSplits = Math.floor(this.numSplits)+1;
+      }
+    
+    this.speed = parseFloat(this.preddist)/parseFloat(this.predtimeseconds);
+
+    //Calculate split times
+    this.cumulsplit[this.completedSplits] = this.time;
+    if (this.completedSplits==1) {
+      this.lapsplit[this.completedSplits] = this.time;
+    }
+    else
+    {
+      this.lapsplit[this.completedSplits] = this.time - this.cumulsplit[this.completedSplits - 1];
+    }
+    var splitText = ' Split&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goal&nbsp;&nbsp;&nbsp;&nbsp;Actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cumul';
+    splitText = splitText + "<br>" + this.setToChars(this.firstSplit.toString(),5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplit / this.speed),9);  
+    splitText = splitText + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[1]),9) + " " + this.setToChars(this.convertsectoHMS(this.cumulsplit[1]),9);  
+    for (let i = 1; i < this.numSplits; i++) {
+      if (this.finalSplit && i==this.numSplits-1) {
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + (i-1) * this.splitDist + this.finalSplit),5) + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
+        if (this.completedSplits > i) {
+          splitText = splitText + "  " + this.setToChars(this.convertsectoHMS(this.lapsplit[i+1]),9) + " " + this.setToChars(this.convertsectoHMS(this.cumulsplit[i+1]),9);
+        }
+      }
+      else
+      {
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplit) + i * this.splitDist,5) + " " + this.setToChars(this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed),9);
+        if (this.completedSplits > i) {
+          splitText = splitText + "  " + this.setToChars(this.convertsectoHMS(this.lapsplit[i+1]),9) + " " + this.setToChars(this.convertsectoHMS(this.cumulsplit[i+1]),9);
+        }
+      }
+
+    }
+    document.getElementById('splitData').innerHTML = splitText;
     }
 
-    timer(0, 100).subscribe((ec) => {
+    this.subscription = this.intervallTimer.subscribe(() => {
+
+      if (this.startButton == "Finished") {
+        console.log("Finished: " + this.startButton);
+          this.subscription.unsubscribe();
+      }
+
       var n = new Date();
       this.time = (n.getTime() - this.starttime) / 1000;
+
       if (this.time < 60) {
         this.timedisplay = this.time.toFixed(1).toString();
-        console.log(this.time);
       } else if (this.time >= 60 && this.time < 3600) {
         var minutes = Math.floor(this.time / 60).toString();
         var seconds = (this.time % 60).toFixed(1).toString();
@@ -171,5 +229,15 @@ export class Tab2Page {
       timeString = strhh + ':' + strmm + ':' + strss;
     }
     return timeString;
+  }
+
+  setToChars(txt,digits) {
+    var temptxt = txt.toString();
+    var txtLength = temptxt.toString().length;
+    var numspaces = digits - txtLength;
+    for (let i = 0; i < numspaces; i++) {
+      temptxt = "&nbsp;" + temptxt;
+    }
+    return temptxt;
   }
 }
