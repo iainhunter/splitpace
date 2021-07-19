@@ -15,14 +15,17 @@
         <ion-card-header>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-header>
 
         <ion-card-content>
-            First split:
-            <ion-input type="number" id="firstSplit" value=""></ion-input>
-            Split distance:
-            <ion-input type="number" id="splitDist" value=""></ion-input>
+            <ion-item>
+                <ion-label>First split:</ion-label>
+                <input style="max-width: 40% !important;" type="number" id="firstSplit" value="400" (focusout)="ngOnInit()" matInput>
+            </ion-item>
+            <ion-item>
+                <ion-label>Split distance:</ion-label>
+                <input style="max-width: 40% !important;" type="number" id="splitDist" value="400" (focusout)="ngOnInit()" matInput>
+            </ion-item>
             <ion-button expand="block" (click)="startTimer()">
                 {{ startButton }}
             </ion-button>
-
         </ion-card-content>
     </ion-card>
 
