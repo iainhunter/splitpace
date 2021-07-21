@@ -15,6 +15,9 @@
         <ion-card-header>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-header>
 
         <ion-card-content>
+            <ion-button expand="block" (click)="resetRace()">
+                {{ resetButton }}
+            </ion-button>
             <ion-item>
                 <ion-label>First split:</ion-label>
                 <input style="max-width: 40% !important;" type="number" id="firstSplit" value="400" (focusout)="ngOnInit()" matInput>

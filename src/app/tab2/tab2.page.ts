@@ -1,4 +1,4 @@
-import { timer, interval } from 'rxjs';
+
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -30,15 +30,16 @@ export class Tab2Page {
   timedisplay = '';
   time = 0;
   startButton = 'Start';
+  resetButton = 'Reset';
   splitData = '';
   private subscription;
-  public intervallTimer = interval(100);
+  public intervalTimer;
   public myTimer;
+//intervalTimer = setInterval(drawAll, 20);
 
   ngOnInit() {
     this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
     this.timedisplay = "0.00";
-
     this.firstSplit = parseFloat((<HTMLInputElement>document.getElementById('firstSplit')).value);
     if (isNaN(this.firstSplit)) {this.firstSplit = 400;}
     this.splitDist = parseFloat((<HTMLInputElement>document.getElementById('splitDist')).value);
@@ -82,22 +83,31 @@ export class Tab2Page {
     document.getElementById('splitDist').innerHTML = this.firstSplit.toString();
 
   }
-
+resetRace() {
+  this.running = false;
+  clearInterval(this.intervalTimer);
+  this.ngOnInit();
+}
   startTimer() {
+    
     if ((this.running == false)) {
+      if (this.startButton == "Finished/Reset") {this.startButton = "Start"; return;}
       var d = new Date();
       this.starttime = d.getTime();
+      console.log("New start time created");
       this.running = true;
       this.startButton = 'Split';
       this.completedSplits = 0;
+      this.ngOnInit();
     } else {
       //Run code for adding a split
       this.completedSplits = this.completedSplits + 1;
       if (this.completedSplits == this.numSplits) { 
-        this.subscription.unsubscribe();
-        this.startButton = "Finished"; 
+        clearInterval(this.intervalTimer);
+        console.log("Interval Timer: " + this.intervalTimer);
+        this.startButton = "Finished/Reset"; 
         this.running = false;
-    }
+      }
       this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
       this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
       if (this.numSplits-Math.floor(this.numSplits)>0) {
@@ -137,16 +147,18 @@ export class Tab2Page {
     document.getElementById('splitData').innerHTML = splitText;
     }
 
-    this.subscription = this.intervallTimer.subscribe(() => {
-
-      if (this.startButton == "Finished") {
-          this.subscription.unsubscribe();
+    this.intervalTimer = setInterval(() => {
+      console.log("Timer still running: " + this.intervalTimer);
+      if (this.startButton=="Start") {this.ngOnInit(); return;}
+      if (this.startButton == "Finished/Reset") {
+        this.running = false;
+        clearInterval(this.intervalTimer);
       }
-
       else
       {
       var n = new Date();
       this.time = (n.getTime() - this.starttime) / 1000;
+
 
       if (this.time < 60) {
         this.timedisplay = this.time.toFixed(1).toString();
@@ -179,7 +191,7 @@ export class Tab2Page {
         this.timedisplay = hours + ':' + txtminutes + ':' + txtseconds;
       }
     }
-    });
+    },100);
   }
 
   getDisplayTimer(time: number) {
