@@ -20,7 +20,10 @@ export class Tab2Page {
   predtimestring = this.convertsectoHMS(this.predtimeseconds);
   splitDist = 400;
   firstSplit = 400;
+  splitDistMeters = 400;
+  firstSplitMeters = 400;
   finalSplit = 0;
+  finalSplitMeters = 0;
   numSplits = 0;
   completedSplits = 0;
   speed = 0;
@@ -35,6 +38,8 @@ export class Tab2Page {
   private subscription;
   public intervalTimer;
   public myTimer;
+  zerotime=true;
+
 //intervalTimer = setInterval(drawAll, 20);
 
   ngOnInit() {
@@ -45,8 +50,8 @@ export class Tab2Page {
     this.splitDist = parseFloat((<HTMLInputElement>document.getElementById('splitDist')).value);
     if (isNaN(this.splitDist)) {this.splitDist = 400;}
     //Calculate number of splits
-    this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
-    this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
+    this.numSplits = (parseFloat(this.preddist)-this.firstSplitMeters)/(this.splitDistMeters)+1;
+    this.finalSplitMeters = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDistMeters);
     if (this.numSplits-Math.floor(this.numSplits)>0) {
       this.numSplits = Math.floor(this.numSplits)+1;
     }
@@ -54,14 +59,14 @@ export class Tab2Page {
     this.speed = parseFloat(this.preddist)/parseFloat(this.predtimeseconds);
 
     var splitText = ' Split&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goal&nbsp;&nbsp;&nbsp;&nbsp;Actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lap';
-    splitText = splitText + "<br>" + this.setToChars(this.firstSplit.toString(),5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplit / this.speed),9);    
+    splitText = splitText + "<br>" + this.setToChars(this.firstSplitMeters.toString(),5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplitMeters / this.speed),9);    
     for (let i = 1; i < this.numSplits; i++) {
-      if (this.finalSplit && i==this.numSplits-1) {
-        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + (i-1) * this.splitDist + this.finalSplit),5).toString() + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
+      if (this.finalSplitMeters && i==this.numSplits-1) {
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + (i-1) * this.splitDistMeters + this.finalSplitMeters),5).toString() + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
       }
       else
       {
-        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + i * this.splitDist),5).toString() + " " + this.setToChars(this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed),9);
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + i * this.splitDistMeters),5).toString() + " " + this.setToChars(this.convertsectoHMS((this.firstSplitMeters + i * this.splitDistMeters) / this.speed),9);
       }
 
     }
@@ -79,17 +84,42 @@ export class Tab2Page {
     this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
     this.splitDist = 400;
     this.firstSplit = 400;
-    document.getElementById('firstSplit').innerHTML = this.firstSplit.toString();
-    document.getElementById('splitDist').innerHTML = this.firstSplit.toString();
+    document.getElementById('firstSplit').innerHTML = this.firstSplitMeters.toString();
+    document.getElementById('splitDist').innerHTML = this.firstSplitMeters.toString();
 
   }
+
+  selUnit(selectedValue: any) {
+    var event = selectedValue.target.value;
+    if (event == 'mi') {
+      this.compunit = 'mi';
+      this.splitDistMeters = this.splitDist * 1609.344;
+      this.firstSplitMeters = this.firstSplit * 1609.344;
+      this.finalSplitMeters = this.finalSplit * 1609.344;
+    }
+    if (event == 'm') {
+      this.compunit = 'm';
+      this.splitDistMeters = this.splitDist;
+      this.firstSplitMeters = this.firstSplit;
+      this.finalSplitMeters = this.finalSplit;
+    }
+    if (event == 'km') {
+      this.compunit = 'km';
+      this.splitDistMeters = this.splitDist * 1000;
+      this.firstSplitMeters = this.firstSplit * 1000;
+      this.finalSplitMeters = this.finalSplit * 1000;
+    }
+    this.ngOnInit();
+  }
+
 resetRace() {
   this.running = false;
   clearInterval(this.intervalTimer);
+  this.startButton="Start"
   this.ngOnInit();
 }
   startTimer() {
-    
+
     if ((this.running == false)) {
       if (this.startButton == "Finished/Reset") {this.startButton = "Start"; return;}
       var d = new Date();
@@ -108,8 +138,8 @@ resetRace() {
         this.startButton = "Finished/Reset"; 
         this.running = false;
       }
-      this.numSplits = (parseFloat(this.preddist)-this.firstSplit)/(this.splitDist)+1;
-      this.finalSplit = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDist);
+      this.numSplits = (parseFloat(this.preddist)-this.firstSplitMeters)/(this.splitDistMeters)+1;
+      this.finalSplitMeters = Math.round((this.numSplits-Math.floor(this.numSplits)) * this.splitDistMeters);
       if (this.numSplits-Math.floor(this.numSplits)>0) {
         this.numSplits = Math.floor(this.numSplits)+1;
       }
@@ -130,14 +160,14 @@ resetRace() {
     splitText = splitText + " " + this.setToChars(this.convertsectoHMS(this.cumulsplit[1]),9) + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[1]),9);  
     for (let i = 1; i < this.numSplits; i++) {
       if (this.finalSplit && i==this.numSplits-1) {
-        splitText = splitText + "<br>" + this.setToChars((this.firstSplit + (i-1) * this.splitDist + this.finalSplit),5) + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + (i-1) * this.splitDistMeters + this.finalSplitMeters),5) + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds),9);
         if (this.completedSplits > i) {
           splitText = splitText + "  " + this.setToChars(this.convertsectoHMS(this.cumulsplit[i+1]),9) + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[i+1]),9);
         }
       }
       else
       {
-        splitText = splitText + "<br>" + this.setToChars((this.firstSplit) + i * this.splitDist,5) + " " + this.setToChars(this.convertsectoHMS((this.firstSplit + i * this.splitDist) / this.speed),9);
+        splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters) + i * this.splitDistMeters,5) + " " + this.setToChars(this.convertsectoHMS((this.firstSplitMeters + i * this.splitDistMeters) / this.speed),9);
         if (this.completedSplits > i) {
           splitText = splitText + "  " + this.setToChars(this.convertsectoHMS(this.cumulsplit[i+1]),9) + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[i+1]),9);
         }
@@ -150,6 +180,7 @@ resetRace() {
     this.intervalTimer = setInterval(() => {
       console.log("Timer still running: " + this.intervalTimer);
       if (this.startButton=="Start") {this.ngOnInit(); return;}
+      if (this.running==false) {this.ngOnInit(); return;}
       if (this.startButton == "Finished/Reset") {
         this.running = false;
         clearInterval(this.intervalTimer);

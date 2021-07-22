@@ -12,7 +12,9 @@
     </ion-header>
 
     <ion-card>
-        <ion-card-header>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-header>
+        <ion-card-header>
+            <ion-card-title>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-title>
+        </ion-card-header>
 
         <ion-card-content>
             <ion-button expand="block" (click)="resetRace()">
@@ -26,6 +28,12 @@
                 <ion-label>Split distance:</ion-label>
                 <input style="max-width: 40% !important;" type="number" id="splitDist" value="400" (focusout)="ngOnInit()" matInput>
             </ion-item>
+            <ion-label>Unit</ion-label>
+            <ion-select id="splitunit" value="m" placeholder="meters" (ionChange)="splitUnit($event)">
+                <ion-select-option value="m">meters</ion-select-option>
+                <ion-select-option value="km">kilometers</ion-select-option>
+                <ion-select-option selected value="mi">miles</ion-select-option>
+            </ion-select>
             <ion-button expand="block" (click)="startTimer()">
                 {{ startButton }}
             </ion-button>
