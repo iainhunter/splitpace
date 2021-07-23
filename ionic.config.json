@@ -1,7 +1,7 @@
 {
-  "name": "splittime",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+    "name": "splitpace",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "angular"
 }

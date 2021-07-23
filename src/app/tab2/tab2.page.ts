@@ -39,10 +39,26 @@ export class Tab2Page {
   public intervalTimer;
   public myTimer;
   zerotime=true;
+  splitunit = "m";
 
 //intervalTimer = setInterval(drawAll, 20);
 
   ngOnInit() {
+    if (this.splitunit == 'mi') {
+      this.splitDistMeters = this.splitDist * 1609.344;
+      this.firstSplitMeters = this.firstSplit * 1609.344;
+      this.finalSplitMeters = this.finalSplit * 1609.344;
+    }
+    if (this.splitunit == 'm') {
+      this.splitDistMeters = this.splitDist;
+      this.firstSplitMeters = this.firstSplit;
+      this.finalSplitMeters = this.finalSplit;
+    }
+    if (this.splitunit == 'km') {
+      this.splitDistMeters = this.splitDist * 1000;
+      this.firstSplitMeters = this.firstSplit * 1000;
+      this.finalSplitMeters = this.finalSplit * 1000;
+    }
     this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
     this.timedisplay = "0.00";
     this.firstSplit = parseFloat((<HTMLInputElement>document.getElementById('firstSplit')).value);
@@ -55,6 +71,12 @@ export class Tab2Page {
     if (this.numSplits-Math.floor(this.numSplits)>0) {
       this.numSplits = Math.floor(this.numSplits)+1;
     }
+    
+    console.log("splitunit: " + this.splitunit);
+    console.log("firstsplit: " + this.firstSplit);
+    console.log("firstsplitmeters: " + this.firstSplitMeters);
+    console.log("splitdist: " + this.splitDist);
+    console.log("splitdistmeters: " + this.splitDistMeters);
     
     this.speed = parseFloat(this.preddist)/parseFloat(this.predtimeseconds);
 
@@ -86,25 +108,24 @@ export class Tab2Page {
     this.firstSplit = 400;
     document.getElementById('firstSplit').innerHTML = this.firstSplitMeters.toString();
     document.getElementById('splitDist').innerHTML = this.firstSplitMeters.toString();
-
   }
 
   selUnit(selectedValue: any) {
     var event = selectedValue.target.value;
     if (event == 'mi') {
-      this.compunit = 'mi';
+      this.splitunit = 'mi';
       this.splitDistMeters = this.splitDist * 1609.344;
       this.firstSplitMeters = this.firstSplit * 1609.344;
       this.finalSplitMeters = this.finalSplit * 1609.344;
     }
     if (event == 'm') {
-      this.compunit = 'm';
+      this.splitunit = 'm';
       this.splitDistMeters = this.splitDist;
       this.firstSplitMeters = this.firstSplit;
       this.finalSplitMeters = this.finalSplit;
     }
     if (event == 'km') {
-      this.compunit = 'km';
+      this.splitunit = 'km';
       this.splitDistMeters = this.splitDist * 1000;
       this.firstSplitMeters = this.firstSplit * 1000;
       this.finalSplitMeters = this.finalSplit * 1000;

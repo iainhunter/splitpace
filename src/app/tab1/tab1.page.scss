@@ -1,16 +1,17 @@
-.button{
+.button {
     font-size: 1.2em;
     line-height: 1.5;
 }
+
 .predlabel {
     font-size: 1.3em;
-  }
+}
 
-  @font-face {   
-    font-family: 'Roboto';    //This is what we are going to call
-    src: url('/Users/iainhunter/Documents/apps/splittime/src/assets/fonts/Roboto-Light.ttf');
-  }
+@font-face {
+    font-family: 'Roboto'; //This is what we are going to call
+    src: url('/Users/iainhunter/Documents/apps/splitpace/src/assets/fonts/Roboto-Light.ttf');
+}
 
-  ion-content{ 
-    font-family:Roboto !important;
-  }
+ion-content {
+    font-family: Roboto !important;
+}
