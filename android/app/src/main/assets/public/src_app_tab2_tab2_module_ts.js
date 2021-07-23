@@ -133,6 +133,7 @@ let Tab2Page = class Tab2Page {
         this.splitData = '';
         this.zerotime = true;
         this.splitunit = "m";
+        this.holddata = false;
     }
     //intervalTimer = setInterval(drawAll, 20);
     ngOnInit() {
@@ -152,7 +153,10 @@ let Tab2Page = class Tab2Page {
             this.finalSplitMeters = this.finalSplit * 1000;
         }
         this.predtimestring = this.convertsectoHMS(this.predtimeseconds);
-        this.timedisplay = "0.00";
+        if (this.holddata == false) {
+            this.timedisplay = "0.00";
+        }
+        ;
         this.firstSplit = parseFloat(document.getElementById('firstSplit').value);
         if (isNaN(this.firstSplit)) {
             this.firstSplit = 400;
@@ -167,23 +171,20 @@ let Tab2Page = class Tab2Page {
         if (this.numSplits - Math.floor(this.numSplits) > 0) {
             this.numSplits = Math.floor(this.numSplits) + 1;
         }
-        console.log("splitunit: " + this.splitunit);
-        console.log("firstsplit: " + this.firstSplit);
-        console.log("firstsplitmeters: " + this.firstSplitMeters);
-        console.log("splitdist: " + this.splitDist);
-        console.log("splitdistmeters: " + this.splitDistMeters);
         this.speed = parseFloat(this.preddist) / parseFloat(this.predtimeseconds);
-        var splitText = ' Split&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goal&nbsp;&nbsp;&nbsp;&nbsp;Actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lap';
-        splitText = splitText + "<br>" + this.setToChars(this.firstSplitMeters.toString(), 5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplitMeters / this.speed), 9);
-        for (let i = 1; i < this.numSplits; i++) {
-            if (this.finalSplitMeters && i == this.numSplits - 1) {
-                splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + (i - 1) * this.splitDistMeters + this.finalSplitMeters), 5).toString() + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds), 9);
+        if (this.holddata == false) {
+            var splitText = ' Split&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goal&nbsp;&nbsp;&nbsp;&nbsp;Actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lap';
+            splitText = splitText + "<br>" + this.setToChars(this.firstSplitMeters.toString(), 5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplitMeters / this.speed), 9);
+            for (let i = 1; i < this.numSplits; i++) {
+                if (this.finalSplitMeters && i == this.numSplits - 1) {
+                    splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + (i - 1) * this.splitDistMeters + this.finalSplitMeters), 5).toString() + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds), 9);
+                }
+                else {
+                    splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + i * this.splitDistMeters), 5).toString() + " " + this.setToChars(this.convertsectoHMS((this.firstSplitMeters + i * this.splitDistMeters) / this.speed), 9);
+                }
             }
-            else {
-                splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + i * this.splitDistMeters), 5).toString() + " " + this.setToChars(this.convertsectoHMS((this.firstSplitMeters + i * this.splitDistMeters) / this.speed), 9);
-            }
+            document.getElementById('splitData').innerHTML = splitText;
         }
-        document.getElementById('splitData').innerHTML = splitText;
     }
     ionViewWillEnter() {
         this.compunit = localStorage.getItem('lscompunit');
@@ -225,20 +226,22 @@ let Tab2Page = class Tab2Page {
         this.running = false;
         clearInterval(this.intervalTimer);
         this.startButton = "Start";
+        this.holddata = false;
         this.ngOnInit();
     }
     startTimer() {
         if ((this.running == false)) {
             if (this.startButton == "Finished/Reset") {
                 this.startButton = "Start";
+                this.holddata = false;
                 return;
             }
             var d = new Date();
             this.starttime = d.getTime();
-            console.log("New start time created");
             this.running = true;
             this.startButton = 'Split';
             this.completedSplits = 0;
+            this.holddata = false;
             this.ngOnInit();
         }
         else {
@@ -246,7 +249,7 @@ let Tab2Page = class Tab2Page {
             this.completedSplits = this.completedSplits + 1;
             if (this.completedSplits == this.numSplits) {
                 clearInterval(this.intervalTimer);
-                console.log("Interval Timer: " + this.intervalTimer);
+                this.holddata = true;
                 this.startButton = "Finished/Reset";
                 this.running = false;
             }
@@ -268,7 +271,7 @@ let Tab2Page = class Tab2Page {
             splitText = splitText + "<br>" + this.setToChars(this.firstSplit.toString(), 5) + " " + this.setToChars(this.convertsectoHMS(this.firstSplit / this.speed), 9);
             splitText = splitText + " " + this.setToChars(this.convertsectoHMS(this.cumulsplit[1]), 9) + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[1]), 9);
             for (let i = 1; i < this.numSplits; i++) {
-                if (this.finalSplit && i == this.numSplits - 1) {
+                if (this.finalSplitMeters && i == this.numSplits - 1) {
                     splitText = splitText + "<br>" + this.setToChars((this.firstSplitMeters + (i - 1) * this.splitDistMeters + this.finalSplitMeters), 5) + " " + this.setToChars(this.convertsectoHMS(this.predtimeseconds), 9);
                     if (this.completedSplits > i) {
                         splitText = splitText + "  " + this.setToChars(this.convertsectoHMS(this.cumulsplit[i + 1]), 9) + " " + this.setToChars(this.convertsectoHMS(this.lapsplit[i + 1]), 9);
@@ -284,7 +287,6 @@ let Tab2Page = class Tab2Page {
             document.getElementById('splitData').innerHTML = splitText;
         }
         this.intervalTimer = setInterval(() => {
-            console.log("Timer still running: " + this.intervalTimer);
             if (this.startButton == "Start") {
                 this.ngOnInit();
                 return;
