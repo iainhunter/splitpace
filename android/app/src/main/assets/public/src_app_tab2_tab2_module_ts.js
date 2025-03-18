@@ -1,4 +1,5 @@
-(self["webpackChunksplitpace"] = self["webpackChunksplitpace"] || []).push([["src_app_tab2_tab2_module_ts"],{
+"use strict";
+(self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["src_app_tab2_tab2_module_ts"],{
 
 /***/ 3092:
 /*!*********************************************!*\
@@ -6,14 +7,13 @@
   \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Tab2PageRoutingModule": () => (/* binding */ Tab2PageRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 9895);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 2816);
 /* harmony import */ var _tab2_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab2.page */ 442);
 
 
@@ -38,22 +38,21 @@ Tab2PageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
 
 /***/ }),
 
-/***/ 7008:
+/***/ 4608:
 /*!*************************************!*\
   !*** ./src/app/tab2/tab2.module.ts ***!
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Tab2PageModule": () => (/* binding */ Tab2PageModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 476);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 8583);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 6362);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ 587);
 /* harmony import */ var _tab2_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab2.page */ 442);
 /* harmony import */ var _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../explore-container/explore-container.module */ 581);
 /* harmony import */ var _tab2_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tab2-routing.module */ 3092);
@@ -90,15 +89,14 @@ Tab2PageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
   \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Tab2Page": () => (/* binding */ Tab2Page)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _raw_loader_tab2_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./tab2.page.html */ 2477);
-/* harmony import */ var _tab2_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tab2.page.scss */ 2055);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 7716);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _tab2_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab2.page.html?ngResource */ 1748);
+/* harmony import */ var _tab2_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tab2.page.scss?ngResource */ 1597);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 3184);
 
 
 
@@ -401,8 +399,8 @@ Tab2Page.ctorParameters = () => [];
 Tab2Page = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
         selector: 'app-tab2',
-        template: _raw_loader_tab2_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
-        styles: [_tab2_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+        template: _tab2_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
+        styles: [_tab2_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
     })
 ], Tab2Page);
 
@@ -410,33 +408,23 @@ Tab2Page = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
 
 /***/ }),
 
-/***/ 2055:
-/*!*************************************!*\
-  !*** ./src/app/tab2/tab2.page.scss ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 1597:
+/*!************************************************!*\
+  !*** ./src/app/tab2/tab2.page.scss?ngResource ***!
+  \************************************************/
+/***/ ((module) => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (".timerlabel {\n  font-size: 1.3em;\n  font-family: \"Courier New\", Courier, monospace;\n}\n\n.fixedwidth {\n  font-family: \"Courier New\", Courier, monospace;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSw4Q0FBQTtBQUNKOztBQUVBO0VBQ0ksOENBQUE7QUFDSiIsImZpbGUiOiJ0YWIyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aW1lcmxhYmVsIHtcbiAgICBmb250LXNpemU6IDEuM2VtO1xuICAgIGZvbnQtZmFtaWx5OiAnQ291cmllciBOZXcnLCBDb3VyaWVyLCBtb25vc3BhY2U7XG59XG5cbi5maXhlZHdpZHRoIHtcbiAgICBmb250LWZhbWlseTogJ0NvdXJpZXIgTmV3JywgQ291cmllciwgbW9ub3NwYWNlO1xufSJdfQ== */");
+module.exports = ".timerlabel {\n  font-size: 1.3em;\n  font-family: \"Courier New\", Courier, monospace;\n}\n\n.fixedwidth {\n  font-family: \"Courier New\", Courier, monospace;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRhYjIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSw4Q0FBQTtBQUNKOztBQUVBO0VBQ0ksOENBQUE7QUFDSiIsImZpbGUiOiJ0YWIyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aW1lcmxhYmVsIHtcbiAgICBmb250LXNpemU6IDEuM2VtO1xuICAgIGZvbnQtZmFtaWx5OiAnQ291cmllciBOZXcnLCBDb3VyaWVyLCBtb25vc3BhY2U7XG59XG5cbi5maXhlZHdpZHRoIHtcbiAgICBmb250LWZhbWlseTogJ0NvdXJpZXIgTmV3JywgQ291cmllciwgbW9ub3NwYWNlO1xufSJdfQ== */";
 
 /***/ }),
 
-/***/ 2477:
-/*!***************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab2/tab2.page.html ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 1748:
+/*!************************************************!*\
+  !*** ./src/app/tab2/tab2.page.html?ngResource ***!
+  \************************************************/
+/***/ ((module) => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-header [translucent]=\"true\">\n    <ion-toolbar>\n        <ion-title> Timer </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n    <ion-header collapse=\"condense\">\n        <ion-toolbar>\n            <ion-title size=\"large\">Timer</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-card>\n        <ion-card-header>\n            <ion-card-title>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-title>\n        </ion-card-header>\n\n        <ion-card-content>\n            <ion-button expand=\"block\" (click)=\"resetRace()\">\n                {{ resetButton }}\n            </ion-button>\n            <ion-item>\n                <ion-label>First split:</ion-label>\n                <input style=\"max-width: 40% !important;\" type=\"number\" id=\"firstSplit\" value=\"400\" (focusout)=\"ngOnInit()\" matInput>\n            </ion-item>\n            <ion-item>\n                <ion-label>Split distance:</ion-label>\n                <input style=\"max-width: 40% !important;\" type=\"number\" id=\"splitDist\" value=\"400\" (focusout)=\"ngOnInit()\" matInput>\n            </ion-item>\n            <ion-label>Unit</ion-label>\n            <ion-select id=\"splitunit\" value=\"m\" placeholder=\"meters\" (ionChange)=\"selUnit($event)\">\n                <ion-select-option value=\"m\">meters</ion-select-option>\n                <ion-select-option value=\"km\">kilometers</ion-select-option>\n                <ion-select-option selected value=\"mi\">miles</ion-select-option>\n            </ion-select>\n            <ion-button expand=\"block\" (click)=\"startTimer()\">\n                {{ startButton }}\n            </ion-button>\n        </ion-card-content>\n    </ion-card>\n\n    <ion-card>\n        <ion-item>\n            <ion-label class=\"timerlabel\">{{ timedisplay }}</ion-label>\n        </ion-item>\n    </ion-card>\n\n    <div id=\"splitData\" class=\"fixedwidth\" style=\"overflow-y: scroll; height: 400px\"></div>\n</ion-content>");
+module.exports = "<ion-header [translucent]=\"true\">\n    <ion-toolbar>\n        <ion-title> Timer </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n    <ion-header collapse=\"condense\">\n        <ion-toolbar>\n            <ion-title size=\"large\">Timer</ion-title>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-card>\n        <ion-card-header>\n            <ion-card-title>Goal race: {{ predrace }}<br>Goal time: {{ predtimestring }}</ion-card-title>\n        </ion-card-header>\n\n        <ion-card-content>\n            <ion-button expand=\"block\" (click)=\"resetRace()\">\n                {{ resetButton }}\n            </ion-button>\n            <ion-item>\n                <ion-label>First split:</ion-label>\n                <input style=\"max-width: 40% !important;\" type=\"number\" id=\"firstSplit\" value=\"400\" (focusout)=\"ngOnInit()\" matInput>\n            </ion-item>\n            <ion-item>\n                <ion-label>Split distance:</ion-label>\n                <input style=\"max-width: 40% !important;\" type=\"number\" id=\"splitDist\" value=\"400\" (focusout)=\"ngOnInit()\" matInput>\n            </ion-item>\n            <ion-label>Unit</ion-label>\n            <ion-select id=\"splitunit\" value=\"m\" placeholder=\"meters\" (ionChange)=\"selUnit($event)\">\n                <ion-select-option value=\"m\">meters</ion-select-option>\n                <ion-select-option value=\"km\">kilometers</ion-select-option>\n                <ion-select-option selected value=\"mi\">miles</ion-select-option>\n            </ion-select>\n            <ion-button expand=\"block\" (click)=\"startTimer()\">\n                {{ startButton }}\n            </ion-button>\n        </ion-card-content>\n    </ion-card>\n\n    <ion-card>\n        <ion-item>\n            <ion-label class=\"timerlabel\">{{ timedisplay }}</ion-label>\n        </ion-item>\n    </ion-card>\n\n    <div id=\"splitData\" class=\"fixedwidth\" style=\"overflow-y: scroll; height: 400px\"></div>\n</ion-content>";
 
 /***/ })
 

@@ -1,6 +1,6 @@
-(self["webpackChunksplitpace"] = self["webpackChunksplitpace"] || []).push([["polyfills-core-js"],{
+(self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["polyfills-core-js"],{
 
-/***/ 7656:
+/***/ 7320:
 /*!****************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/polyfills/core-js.js ***!
   \****************************************************************/
