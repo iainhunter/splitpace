@@ -1,17 +1,32 @@
-.button {
+ion-card {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+ion-card-header {
     font-size: 1.2em;
-    line-height: 1.5;
+    font-weight: 500;
+    color: var(--ion-color-primary);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ion-color-light-shade);
+}
+
+ion-item {
+    --inner-padding-end: 8px;
+    --padding-start: 16px;
 }
 
 .predlabel {
-    font-size: 1.3em;
-}
-
-@font-face {
-    font-family: 'Roboto'; //This is what we are going to call
-    src: url('/Users/iainhunter/Documents/apps/splitpace/src/assets/fonts/Roboto-Light.ttf');
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    display: block;
+    color: var(--ion-color-primary);
 }
 
 ion-content {
-    font-family: Roboto !important;
+    font-family: 'Roboto', sans-serif !important;
 }
