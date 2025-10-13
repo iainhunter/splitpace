@@ -30,3 +30,42 @@ ion-item {
 ion-content {
     font-family: 'Roboto', sans-serif !important;
 }
+
+.card-header-row {
+    align-items: center;
+}
+
+.inputs-row ion-item,
+.inputs-row ion-input,
+.inputs-row ion-segment {
+    --border-radius: 8px;
+}
+
+.picker-row {
+    margin-top: 12px;
+}
+
+/* Ensure unit segment labels are visible and not clipped */
+.unit-segment ion-segment-button {
+    min-width: 40px;
+    pointer-events: auto; /* ensure clickable */
+}
+.unit-segment ion-label {
+    color: var(--ion-color-step-650, var(--ion-color-primary));
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.predicted-card .predlabel,
+.result-card .predlabel {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--ion-color-secondary);
+}
+
+@media (min-width: 720px) {
+    .predlabel {
+        font-size: 3rem;
+    }
+}

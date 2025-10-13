@@ -218,7 +218,7 @@ export class Tab1Page {
   }
 
   selPredDist(selectedValue: any) {
-    var event = selectedValue.target.value;
+    var event = selectedValue && selectedValue.detail && selectedValue.detail.value ? selectedValue.detail.value : (selectedValue.target && selectedValue.target.value ? selectedValue.target.value : selectedValue);
     if (event == '800m') {
       this.predrace = '800m';
       this.preddist = 800;
@@ -294,16 +294,12 @@ export class Tab1Page {
     this.calcRace();
   }
 
+  // Accept the selected value from ionChange (can be string or number) and coerce to string
   selUnit(selectedValue: any) {
-    var event = selectedValue.target.value;
-    if (event == 'mi') {
-      this.compunit = 'mi';
-    }
-    if (event == 'm') {
-      this.compunit = 'm';
-    }
-    if (event == 'km') {
-      this.compunit = 'km';
+    if (selectedValue === undefined || selectedValue === null) return;
+    const val = String(selectedValue);
+    if (val === 'mi' || val === 'm' || val === 'km') {
+      this.compunit = val;
     }
     this.calcRace();
   }

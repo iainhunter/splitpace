@@ -14,74 +14,91 @@
   </ion-header>
 
 
-  <ion-card>
-
+  <ion-card class="completed-card">
     <ion-card-header>
-      Completed race
+      <ion-row class="card-header-row">
+        <ion-col size="auto"><ion-icon name="flag-outline"></ion-icon></ion-col>
+        <ion-col>Completed race</ion-col>
+      </ion-row>
     </ion-card-header>
-  
+
     <ion-card-content>
-      <ion-list inset>
+      <ion-grid>
+        <ion-row class="inputs-row">
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">Distance</ion-label>
+              <ion-input type="number" [value]="compdist" (input)="setCompDist($event)" inputmode="numeric"></ion-input>
+            </ion-item>
+          </ion-col>
 
-        <ion-item>
-          <ion-label>Distance:</ion-label>
-          <ion-input type="text" [value]="compdist" (input)="setCompDist($event)"></ion-input>
-          <ion-label>Unit</ion-label>
-          <ion-select id="selcompunit" value="mi" placeholder="mile" (ionChange)="selUnit($event)">
-            <ion-select-option value="m">meters</ion-select-option>
-            <ion-select-option value="km">kilometers</ion-select-option>
-            <ion-select-option selected value="mi">miles</ion-select-option>
-          </ion-select>
-        </ion-item>
+          <ion-col size="6">
+            <ion-label position="stacked">Unit</ion-label>
+            <!-- Place the segment outside of ion-item to avoid potential clipping/overlay issues -->
+            <ion-segment class="unit-segment" [value]="compunit" (ionChange)="selUnit($event?.detail?.value || $event)">
+              <ion-segment-button value="m">
+                <ion-label>m</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="km">
+                <ion-label>km</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="mi">
+                <ion-label>mi</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-col>
+        </ion-row>
 
-        <ion-item>
-            <ion-button text- slot="end" fill="clear" (click)="showBasicPicker()">{{ timedata }}</ion-button>
-        </ion-item>
-
-      </ion-list>
-
+        <ion-row class="picker-row">
+          <ion-col>
+            <ion-button expand="block" fill="outline" (click)="showBasicPicker()">
+              <ion-icon name="time-outline" slot="start"></ion-icon>
+              {{ timedata }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
-  
   </ion-card>
 
-  <ion-card>
-
+  <ion-card class="predicted-card">
     <ion-card-header>
-      Predicted race
+      <ion-row class="card-header-row">
+        <ion-col size="auto"><ion-icon name="trending-up-outline"></ion-icon></ion-col>
+        <ion-col>Predicted race</ion-col>
+      </ion-row>
     </ion-card-header>
     <ion-card-content>
-
       <ion-item>
-        <ion-label>Race distance</ion-label>
-        <ion-select id="predrace" value="mile" placeholder="1 Mile" (ionChange)="selPredDist($event)">
+        <ion-label position="stacked">Race distance</ion-label>
+        <ion-select id="predrace" value="mile" (ionChange)="selPredDist($event)">
           <ion-select-option value="800m">800m</ion-select-option>
           <ion-select-option value="1000m">1000m</ion-select-option>
           <ion-select-option value="1200m">1200m</ion-select-option>
           <ion-select-option value="1500m">1500m</ion-select-option>
           <ion-select-option value="1600m">1600m</ion-select-option>
-          <ion-select-option selected value="mile">1 Mile</ion-select-option>
+          <ion-select-option value="mile">1 Mile</ion-select-option>
           <ion-select-option value="2000m">2000m</ion-select-option>
           <ion-select-option value="3000m">3000m</ion-select-option>
           <ion-select-option value="3200m">3200m</ion-select-option>
           <ion-select-option value="2mile">2 Mile</ion-select-option>
           <ion-select-option value="5000m">5000m</ion-select-option>
-          <ion-select-option value="10000m">10000m</ion-select-option>
+          <ion-select-option value="10km">10,000m</ion-select-option>
           <ion-select-option value="half">Half Marathon</ion-select-option>
           <ion-select-option value="20km">20km</ion-select-option>
           <ion-select-option value="marathon">Marathon</ion-select-option>
           <ion-select-option value="50km">50km</ion-select-option>
           <ion-select-option value="100km">100km</ion-select-option>
           <ion-select-option value="100mi">100 Mile</ion-select-option>
-          </ion-select>
+        </ion-select>
       </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-      </ion-card-content>
-      </ion-card>
-
-<ion-card>
-  <ion-item>
-    <ion-label class="predlabel" color="primary">{{ predtime }}</ion-label>
-  </ion-item>
-</ion-card>
+  <ion-card class="result-card">
+    <ion-card-content>
+      <div class="predlabel">{{ predtime }}</div>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
