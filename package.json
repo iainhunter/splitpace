@@ -10,6 +10,8 @@
   "postbuild": "npm run ensure-index",
   "ensure-index": "node -e \"const fs=require('fs'); if(!fs.existsSync('www/index.html') && fs.existsSync('www/browser/index.html')) fs.copyFileSync('www/browser/index.html','www/index.html'), console.log('ensured www/index.html')\"",
   "build:cap": "npm run build && npm run ensure-index",
+  "cap:android": "npm run build:cap && npx cap copy android",
+  "cap:ios": "npm run build:cap && npx cap copy ios",
   "test": "ng test",
   "lint": "ng lint",
   "e2e": "ng e2e"
