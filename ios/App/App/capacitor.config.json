@@ -1,0 +1,14 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "splitpace",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"packageClassList": [
+		"AppPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"PreferencesPlugin",
+		"StatusBarPlugin",
+		"CDVPlugin"
+	]
+}
